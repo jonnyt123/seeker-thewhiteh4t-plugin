@@ -17,6 +17,17 @@ class PluginQualityTests(unittest.TestCase):
         self.assertEqual(p.returncode,0,p.stdout+p.stderr)
         self.assertIn("skills=11",p.stdout)
 
+    def test_validator_ignores_untracked_bytecode_cache(self):
+        cache=ROOT/"tests"/"__pycache__"
+        cache.mkdir(exist_ok=True)
+        marker=cache/"quality-regression.pyc"
+        marker.write_bytes(b"generated-test-cache")
+        try:
+            p=self.run_script("scripts/validate_repo.py")
+            self.assertEqual(p.returncode,0,p.stdout+p.stderr)
+        finally:
+            marker.unlink(missing_ok=True)
+
     def test_manifests_agree(self):
         root=json.loads((ROOT/"plugin.json").read_text())
         compat=json.loads((ROOT/".codex-plugin/plugin.json").read_text())
