@@ -1,28 +1,33 @@
 {
   "name": "seeker-thewhiteh4t",
-  "version": "0.4.0",
-  "description": "Authorized local-lab workflows for thewhiteh4t/seeker.",
+  "version": "0.5.0",
+  "description": "Authorized local-lab inspection, diagnostics, privacy hardening, and auditing workflows for thewhiteh4t/seeker.",
+  "author": {
+    "name": "Jonathan Thompson"
+  },
+  "repository": "https://github.com/jonnyt123/-seeker-thewhiteh4t-plugin",
   "skills": "./skills/",
   "interface": {
     "displayName": "Seeker Lab",
     "shortDescription": "Authorized Seeker lab tools",
-    "longDescription": "Inspect, understand, configure, test, harden, and troubleshoot thewhiteh4t/seeker in transparent, authorized local or lab environments. The plugin understands Seeker 1.3.1's current CLI, template indexes, Python/PHP data flow, generated artifacts, and common runtime failures. Sensitive workflows are intentionally limited to localhost, the user's own devices, synthetic fixtures, or clearly consenting participants; it does not assist deceptive or covert collection against third parties.",
+    "longDescription": "Inspect, configure, test, harden, and troubleshoot thewhiteh4t/seeker in transparent, authorized local or lab environments. Seeker Lab covers CLI and template inspection, Python/PHP diagnostics, synthetic localhost testing, sensitive-artifact review, privacy hardening, data-flow auditing, and upstream comparison. Runtime collection is limited to localhost, the user's own devices, synthetic fixtures, or clearly consenting participants. It does not assist deceptive or covert collection against third parties.",
+    "developerName": "Jonathan Thompson",
     "category": "Developer Tools",
     "capabilities": [
-      "Inspect thewhiteh4t/seeker source and configuration",
-      "Explain current CLI flags, environment variables, and template indexes",
-      "Verify Python, PHP, imports, ports, and local runtime prerequisites",
-      "Run transparent localhost or owned-device lab smoke tests",
-      "Use synthetic local fixtures to test the result pipeline without real location data",
-      "Audit the JavaScript, PHP, and Python data flow",
-      "Review templates without enabling deceptive impersonation",
-      "Inspect and redact sensitive Seeker logs, CSV results, and KML artifacts",
-      "Apply optional privacy-hardening changes for local testing",
-      "Compare a checkout with upstream source and summarize relevant changes"
+      "Inspect Seeker source and configuration",
+      "Explain CLI flags, environment variables, and templates",
+      "Diagnose Python, PHP, dependency, port, and PID failures",
+      "Run synthetic localhost smoke tests",
+      "Audit browser, PHP, Python, CSV, KML, and outbound data flow",
+      "Redact sensitive Seeker artifacts before review",
+      "Review templates for transparent lab use",
+      "Apply privacy and local-only hardening",
+      "Compare a checkout with upstream source",
+      "Report exact execution evidence and residual risks"
     ],
     "defaultPrompt": [
-      "Inspect this Seeker checkout and tell me exactly what is configured or broken.",
-      "Run a safe localhost smoke test of Seeker using synthetic fixture data.",
+      "Inspect this Seeker checkout and tell me what is configured or broken.",
+      "Run a safe localhost smoke test using synthetic fixture data.",
       "Audit this Seeker checkout for privacy, data-flow, and runtime risks."
     ],
     "brandColor": "#166534",
