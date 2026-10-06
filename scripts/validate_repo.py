@@ -17,7 +17,9 @@ def load(path):
 
 portable=load(root/"plugin.json")
 compat=load(root/".codex-plugin"/"plugin.json")
-marketplace=load(root/".agents"/"plugins"/"marketplace.json")\nif "com" in (portable.get("extensions") or {}): errors.append('portable extensions must use literal "com.openai" key, not nested com/openai')
+marketplace=load(root/".agents"/"plugins"/"marketplace.json")
+if "com" in (portable.get("extensions") or {}):
+    errors.append('portable extensions must use literal "com.openai" key, not nested com/openai')
 
 for label,data in (("plugin.json",portable),(".codex-plugin/plugin.json",compat)):
     if not isinstance(data.get("name"),str) or not name_re.fullmatch(data["name"]): errors.append(f"{label}: invalid name")
@@ -29,7 +31,11 @@ if portable.get("name")!=compat.get("name"): errors.append("manifest names disag
 if portable.get("version")!=compat.get("version"): errors.append("manifest versions disagree")
 if compat.get("skills")!="./skills/": errors.append("compat skills must be ./skills/")
 
-openai_ext=(portable.get("extensions") or {}).get("com.openai")\nif not isinstance(openai_ext,dict): errors.append("portable extensions.com.openai missing"); openai_ext={}\ninterface=openai_ext.get("interface")
+openai_ext=(portable.get("extensions") or {}).get("com.openai")
+if not isinstance(openai_ext,dict):
+    errors.append("portable extensions.com.openai missing")
+    openai_ext={}
+interface=openai_ext.get("interface")
 compat_interface=compat.get("interface")
 if not isinstance(interface,dict): errors.append("portable OpenAI interface missing"); interface={}
 if not isinstance(compat_interface,dict): errors.append("compat interface missing"); compat_interface={}
