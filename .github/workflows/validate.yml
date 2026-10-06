@@ -24,11 +24,11 @@ jobs:
           python-version: "3.12"
       - name: Validate repository contract
         run: python3 scripts/validate_repo.py
+      - name: Run helper tests
+        run: python3 -m unittest discover -s tests -v
       - name: Compile Python helpers
         run: |
           python3 -m py_compile scripts/validate_repo.py
           python3 -m py_compile skills/seeker-local-lab/scripts/synthetic_fixture.py
           python3 -m py_compile skills/seeker-dataflow-audit/scripts/static_audit.py
           python3 -m py_compile skills/seeker-artifact-review/scripts/redact_seeker_data.py
-      - name: Run helper tests
-        run: python3 -m unittest discover -s tests -v
