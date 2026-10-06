@@ -1,18 +1,10 @@
-# Seeker Lab Plugin v0.4.0
+# Seeker Lab Plugin v0.5.0
 
-A ChatGPT/Codex skills-only plugin specialized for `thewhiteh4t/seeker`.
+A ChatGPT/Codex skills-only plugin for authorized inspection, diagnostics, testing, privacy hardening, and auditing of `thewhiteh4t/seeker`.
 
-## What it can do
+## Capabilities
 
-- inspect a Seeker checkout and current CLI/template configuration;
-- diagnose Python, PHP, dependency, port, PID, and template failures;
-- run transparent localhost/owned-device lab checks;
-- validate the handler pipeline with synthetic localhost-only fixture data;
-- audit browser → PHP → Python → CSV/KML/outbound data flow;
-- inspect/redact sensitive artifacts;
-- review templates;
-- apply privacy/local-only hardening when explicitly requested;
-- compare a checkout with upstream.
+Seeker Lab can inspect a checkout, explain the current CLI/template configuration, diagnose Python/PHP/runtime failures, run synthetic localhost checks, audit the browser → PHP → Python → CSV/KML/outbound data flow, redact sensitive artifacts, review templates, apply privacy/local-only hardening when requested, and compare a checkout with upstream.
 
 ## Safety boundary
 
@@ -20,12 +12,25 @@ Seeker can collect precise browser geolocation and device/network information. R
 
 ## Package structure
 
-The root `plugin.json` is the portable Agent Plugins manifest. `.codex-plugin/plugin.json` is included as a compatibility fallback. This plugin has no MCP server and no external authentication dependency.
+The root `plugin.json` is the portable Agent Plugins manifest. `.codex-plugin/plugin.json` is the compatibility fallback. This is a skills-only package: it has no MCP server, app mapping, external authentication dependency, or bundled upstream Seeker source.
+
+## Validation
+
+Run:
+
+```bash
+python3 scripts/validate_repo.py
+python3 -m unittest discover -s tests -v
+```
+
+GitHub Actions runs the same repository validator, compiles every bundled Python helper, and runs the regression suite on pushes and pull requests.
 
 ## Upstream target
 
-The plugin was built from inspection of `thewhiteh4t/seeker` version 1.3.1 source and its current `template/templates.json`, `js/location.js`, PHP handlers, and installer.
+The workflows were designed from inspection of `thewhiteh4t/seeker` 1.3.1-era source. The upstream project is not vendored into this repository. Use the upstream-review Skill to verify drift before relying on version-sensitive details.
 
-## Source of truth
+## Release status
 
-This repository is the canonical source for the plugin. Build release artifacts from committed repository contents; do not edit generated ZIPs directly.
+GitHub `main` is the development source of truth. A passing local/CI validation run is not the same as OpenAI Plugin Directory submission, approval, or publication.
+
+See `QUALITY-100.md` for the v0.5.0 quality ledger and `SECURITY.md` for the authorized-use boundary.
