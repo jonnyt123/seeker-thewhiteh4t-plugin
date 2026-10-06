@@ -4,7 +4,7 @@
 
 Quality hardening release.
 
-- restored canonical repository metadata to the currently live GitHub repository after verifying the attempted rename had not taken effect;
+- successfully renamed the GitHub repository to `seeker-thewhiteh4t-plugin` and updated canonical repository metadata;
 
 - aligned portable and compatibility manifests;
 - added required package author and OpenAI developer metadata;
