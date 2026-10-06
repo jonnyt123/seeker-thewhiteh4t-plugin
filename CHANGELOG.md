@@ -4,6 +4,8 @@
 
 Quality hardening release.
 
+- corrected the repository name and canonical repository metadata after the original leading-hyphen typo was removed;
+
 - aligned portable and compatibility manifests;
 - added required package author and OpenAI developer metadata;
 - tightened listing copy and starter prompts;
