@@ -33,8 +33,8 @@ class PluginQualityTests(unittest.TestCase):
         root=json.loads((ROOT/"plugin.json").read_text())
         compat=json.loads((ROOT/".codex-plugin/plugin.json").read_text())
         self.assertEqual(root["name"],compat["name"])
-        self.assertEqual(root["version"],compat["version"])
-        self.assertEqual(root["extensions"]["com"]["openai"]["interface"],compat["interface"])
+        self.assertEqual(root["version"],compat["version"])\n        self.assertIn("com.openai",root["extensions"])\n        self.assertNotIn("com",root["extensions"])
+        self.assertEqual(root["extensions"]["com.openai"]["interface"],compat["interface"])
 
     def test_marketplace_points_to_canonical_repo(self):
         manifest=json.loads((ROOT/"plugin.json").read_text())
