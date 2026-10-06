@@ -115,4 +115,4 @@ This ledger records the 100 concrete checks/improvements covered by the v0.5.0 h
 97. Clarified upstream Seeker is not bundled.
 98. Clarified GitHub main is the development source of truth.
 99. Separated package validation from public-directory approval.
-100. Documented the remaining repository-name typo as a release-hygiene issue until renamed.
+100. Corrected the repository name and canonical repository metadata after the mobile-created leading-hyphen typo was removed.
