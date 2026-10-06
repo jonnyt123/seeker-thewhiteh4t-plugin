@@ -1,0 +1,10 @@
+interface:
+  display_name: "Seeker Artifact Review"
+  short_description: "Review sensitive test artifacts"
+  brand_color: "#166534"
+  default_prompt: "Use Seeker Artifact Review on this authorized Seeker checkout."
+policy:
+  products:
+    - CHAT
+    - CODEX
+  allow_implicit_invocation: false

@@ -1,0 +1,10 @@
+interface:
+  display_name: "Seeker Diagnostics"
+  short_description: "Fix Seeker runtime failures"
+  brand_color: "#166534"
+  default_prompt: "Use Seeker Diagnostics on this authorized Seeker checkout."
+policy:
+  products:
+    - CHAT
+    - CODEX
+  allow_implicit_invocation: true

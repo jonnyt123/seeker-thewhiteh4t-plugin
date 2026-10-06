@@ -1,0 +1,26 @@
+name: Validate plugin
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate repository
+        run: python3 scripts/validate_repo.py
+      - name: Compile helper scripts
+        run: |
+          python3 -m py_compile \
+            skills/seeker-local-lab/scripts/synthetic_fixture.py \
+            skills/seeker-dataflow-audit/scripts/static_audit.py \
+            skills/seeker-artifact-review/scripts/redact_seeker_data.py

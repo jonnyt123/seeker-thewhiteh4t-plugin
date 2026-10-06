@@ -1,0 +1,10 @@
+interface:
+  display_name: "Seeker Data-flow Audit"
+  short_description: "Audit Seeker data handling"
+  brand_color: "#166534"
+  default_prompt: "Use Seeker Data-flow Audit on this authorized Seeker checkout."
+policy:
+  products:
+    - CHAT
+    - CODEX
+  allow_implicit_invocation: true

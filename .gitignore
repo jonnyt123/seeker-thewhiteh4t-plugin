@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Seeker runtime artifacts
+logs/
+db/results.csv
+pid
+*.kml
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local build outputs
+dist/
+*.zip

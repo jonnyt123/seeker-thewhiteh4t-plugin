@@ -1,0 +1,10 @@
+interface:
+  display_name: "Seeker Privacy Hardening"
+  short_description: "Harden Seeker for local demos"
+  brand_color: "#166534"
+  default_prompt: "Use Seeker Privacy Hardening on this authorized Seeker checkout."
+policy:
+  products:
+    - CHAT
+    - CODEX
+  allow_implicit_invocation: false
