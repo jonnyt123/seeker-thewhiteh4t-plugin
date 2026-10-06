@@ -17,6 +17,7 @@ def load(path):
 
 portable=load(root/"plugin.json")
 compat=load(root/".codex-plugin"/"plugin.json")
+marketplace=load(root/".agents"/"plugins"/"marketplace.json")
 
 for label,data in (("plugin.json",portable),(".codex-plugin/plugin.json",compat)):
     if not isinstance(data.get("name"),str) or not name_re.fullmatch(data["name"]): errors.append(f"{label}: invalid name")
@@ -47,6 +48,30 @@ elif any(not isinstance(x,str) or not x.strip() or len(x)>128 or "\n" in x for x
 elif len({" ".join(x.split()).casefold() for x in prompts})!=len(prompts): errors.append("defaultPrompt values must be unique")
 if interface.get("category")!="Developer Tools": errors.append("unexpected category")
 if not re.fullmatch(r"#[0-9A-Fa-f]{6}",str(interface.get("brandColor",""))): errors.append("invalid brandColor")
+
+if marketplace.get("name")!="seeker-lab": errors.append("marketplace name must be seeker-lab")
+market_interface=marketplace.get("interface")
+if not isinstance(market_interface,dict) or market_interface.get("displayName")!="Seeker Lab": errors.append("marketplace displayName must be Seeker Lab")
+plugins=marketplace.get("plugins")
+if not isinstance(plugins,list) or len(plugins)!=1:
+    errors.append("marketplace must contain exactly one Seeker Lab plugin entry")
+else:
+    entry=plugins[0]
+    if not isinstance(entry,dict): errors.append("marketplace plugin entry must be an object")
+    else:
+        if entry.get("name")!=portable.get("name"): errors.append("marketplace plugin name must match portable manifest")
+        source=entry.get("source")
+        if not isinstance(source,dict): errors.append("marketplace source must be an object")
+        else:
+            if source.get("source")!="url": errors.append("marketplace source type must be url")
+            if source.get("url")!="https://github.com/jonnyt123/seeker-thewhiteh4t-plugin.git": errors.append("marketplace source URL is not canonical")
+            if source.get("ref")!="main": errors.append("marketplace source ref must be main")
+        policy=entry.get("policy")
+        if not isinstance(policy,dict): errors.append("marketplace policy must be an object")
+        else:
+            if policy.get("installation")!="AVAILABLE": errors.append("marketplace installation policy must be AVAILABLE")
+            if policy.get("authentication")!="ON_INSTALL": errors.append("marketplace authentication policy must be ON_INSTALL")
+        if entry.get("category")!="Developer Tools": errors.append("marketplace category must be Developer Tools")
 
 codex=root/".codex-plugin"
 if not codex.is_dir(): errors.append("missing .codex-plugin")
@@ -92,7 +117,7 @@ tracked=set()
 try:
     proc=subprocess.run(["git","ls-files","-z"],cwd=root,stdout=subprocess.PIPE,stderr=subprocess.DEVNULL,check=False)
     if proc.returncode==0:
-        tracked={item.decode("utf-8","surrogateescape") for item in proc.stdout.split(b"\\0") if item}
+        tracked={item.decode("utf-8","surrogateescape") for item in proc.stdout.split(b"\0") if item}
 except (OSError,ValueError):
     tracked=set()
 
@@ -115,6 +140,7 @@ for rel in sorted(tracked):
 
 print(f"version={portable.get('version')}")
 print(f"skills={len(names)}")
+print(f"marketplace={marketplace.get('name')}")
 if errors:
     for e in errors: print(f"ERROR: {e}")
     sys.exit(1)

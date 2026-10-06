@@ -1,0 +1,21 @@
+{
+  "name": "seeker-lab",
+  "interface": {
+    "displayName": "Seeker Lab"
+  },
+  "plugins": [
+    {
+      "name": "seeker-thewhiteh4t",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/jonnyt123/seeker-thewhiteh4t-plugin.git",
+        "ref": "main"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

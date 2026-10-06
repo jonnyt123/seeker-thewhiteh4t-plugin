@@ -16,6 +16,7 @@ class PluginQualityTests(unittest.TestCase):
         p=self.run_script("scripts/validate_repo.py")
         self.assertEqual(p.returncode,0,p.stdout+p.stderr)
         self.assertIn("skills=11",p.stdout)
+        self.assertIn("marketplace=seeker-lab",p.stdout)
 
     def test_validator_ignores_untracked_bytecode_cache(self):
         cache=ROOT/"tests"/"__pycache__"
@@ -34,6 +35,21 @@ class PluginQualityTests(unittest.TestCase):
         self.assertEqual(root["name"],compat["name"])
         self.assertEqual(root["version"],compat["version"])
         self.assertEqual(root["extensions"]["com"]["openai"]["interface"],compat["interface"])
+
+    def test_marketplace_points_to_canonical_repo(self):
+        manifest=json.loads((ROOT/"plugin.json").read_text())
+        market=json.loads((ROOT/".agents/plugins/marketplace.json").read_text())
+        self.assertEqual(market["name"],"seeker-lab")
+        self.assertEqual(market["interface"]["displayName"],"Seeker Lab")
+        self.assertEqual(len(market["plugins"]),1)
+        entry=market["plugins"][0]
+        self.assertEqual(entry["name"],manifest["name"])
+        self.assertEqual(entry["source"]["source"],"url")
+        self.assertEqual(entry["source"]["url"],manifest["repository"]+".git")
+        self.assertEqual(entry["source"]["ref"],"main")
+        self.assertEqual(entry["policy"]["installation"],"AVAILABLE")
+        self.assertEqual(entry["policy"]["authentication"],"ON_INSTALL")
+        self.assertEqual(entry["category"],"Developer Tools")
 
     def test_fixture_is_loopback_only(self):
         text=(ROOT/"skills/seeker-local-lab/scripts/synthetic_fixture.py").read_text()

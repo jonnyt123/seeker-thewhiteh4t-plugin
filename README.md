@@ -10,6 +10,27 @@ Seeker Lab can inspect a checkout, explain the current CLI/template configuratio
 
 Seeker can collect precise browser geolocation and device/network information. Runtime collection is limited to transparent localhost tests, the user's own devices, synthetic fixtures, or clearly consenting participants. The plugin does not assist deceptive or covert collection against third parties.
 
+## Install in ChatGPT desktop
+
+This repository contains a repo marketplace at `.agents/plugins/marketplace.json`.
+
+Add the marketplace:
+
+```bash
+codex plugin marketplace add jonnyt123/seeker-thewhiteh4t-plugin --ref main
+```
+
+Then restart the ChatGPT desktop app. Open **Plugins Directory**, choose the **Seeker Lab** marketplace, open **Seeker Lab**, and install it.
+
+Useful marketplace commands:
+
+```bash
+codex plugin marketplace list
+codex plugin marketplace upgrade seeker-lab
+```
+
+The marketplace entry installs the plugin from this GitHub repository's `main` branch. ChatGPT installs a cached copy, so refresh/upgrade the marketplace after repository changes before retesting.
+
 ## Package structure
 
 The root `plugin.json` is the portable Agent Plugins manifest. `.codex-plugin/plugin.json` is the compatibility fallback. This is a skills-only package: it has no MCP server, app mapping, external authentication dependency, or bundled upstream Seeker source.
@@ -23,7 +44,7 @@ python3 scripts/validate_repo.py
 python3 -m unittest discover -s tests -v
 ```
 
-GitHub Actions runs the same repository validator, compiles every bundled Python helper, and runs the regression suite on pushes and pull requests.
+GitHub Actions runs the same repository validator, compiles every bundled Python helper, and runs the regression suite on pushes and pull requests. Validation also checks that the marketplace entry points back to the canonical plugin name and repository.
 
 ## Upstream target
 
@@ -31,6 +52,6 @@ The workflows were designed from inspection of `thewhiteh4t/seeker` 1.3.1-era so
 
 ## Release status
 
-GitHub `main` is the development source of truth. A passing local/CI validation run is not the same as OpenAI Plugin Directory submission, approval, or publication.
+GitHub `main` is the development source of truth. A passing local/CI validation run or successful personal marketplace install is not the same as OpenAI Plugin Directory submission, approval, or publication.
 
 See `QUALITY-100.md` for the v0.5.0 quality ledger and `SECURITY.md` for the authorized-use boundary.
